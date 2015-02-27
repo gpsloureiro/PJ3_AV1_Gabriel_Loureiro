@@ -26,7 +26,7 @@ public class BuscaCarro {
 		System.out.print("Informe o tipo do carro: ");
 		tipo = input.nextLine();
 		try {
-			System.out.print("Informe o preco do carro: ");
+			System.out.print("Informe até quanto quer o preçoo do carro: ");
 			preco = Float.parseFloat(input.nextLine());
 			if (preco < 0) {
 				System.out.println("Não existe esse preço então o valor vai ficar ZERO!!!");
@@ -75,7 +75,7 @@ public class BuscaCarro {
 		
 		if (montadora.equalsIgnoreCase("") && tipo.equalsIgnoreCase("") && modelo.equalsIgnoreCase("")) {
 			for (Carro carros : loja.getCarros()) {
-				if (carros.getPreco() == preco) {
+				if (carros.getPreco() < preco) {
 					exibir(carros);
 					verificador = 1;
 				}
@@ -87,7 +87,7 @@ public class BuscaCarro {
 		
 		if (tipo.equalsIgnoreCase("") && modelo.equalsIgnoreCase("")) {
 			for (Carro carros : loja.getCarros()) {
-				if (carros.getPreco() == preco && carros.getMontadora().equalsIgnoreCase(montadora)) {
+				if (carros.getPreco() < preco && carros.getMontadora().equalsIgnoreCase(montadora)) {
 					exibir(carros);
 					verificador = 1;
 				}
@@ -99,7 +99,7 @@ public class BuscaCarro {
 		
 		if (montadora.equalsIgnoreCase("") && tipo.equalsIgnoreCase("")) {
 			for (Carro carros : loja.getCarros()) {
-				if (carros.getPreco() == preco && carros.getModelo().equalsIgnoreCase(modelo)) {
+				if (carros.getPreco() < preco && carros.getModelo().equalsIgnoreCase(modelo)) {
 					exibir(carros);
 					verificador = 1;
 				}
@@ -111,7 +111,7 @@ public class BuscaCarro {
 		
 		if (montadora.equalsIgnoreCase("") && modelo.equalsIgnoreCase("")) {
 			for (Carro carros : loja.getCarros()) {
-				if (carros.getPreco() == preco && carros.getTipo().equalsIgnoreCase(tipo)) {
+				if (carros.getPreco() < preco && carros.getTipo().equalsIgnoreCase(tipo)) {
 					exibir(carros);
 					verificador = 1;
 				}
@@ -160,7 +160,7 @@ public class BuscaCarro {
 		if (montadora.equalsIgnoreCase("")) {
 			for (Carro carros : loja.getCarros()) {
 				if (carros.getModelo().equalsIgnoreCase(modelo) && carros.getTipo().equalsIgnoreCase(tipo)
-				&& carros.getPreco() == preco) {
+				&& carros.getPreco() < preco) {
 					exibir(carros);
 					verificador = 1;
 				}
@@ -173,7 +173,7 @@ public class BuscaCarro {
 		if (tipo.equalsIgnoreCase("")) {
 			for (Carro carros : loja.getCarros()) {
 				if (carros.getModelo().equalsIgnoreCase(modelo) && carros.getMontadora().equalsIgnoreCase(montadora)
-				&& carros.getPreco() == preco) {
+				&& carros.getPreco() < preco) {
 					exibir(carros);
 					verificador = 1;
 				}
@@ -186,7 +186,7 @@ public class BuscaCarro {
 		if (modelo.equalsIgnoreCase("")) {
 			for (Carro carros : loja.getCarros()) {
 				if (carros.getMontadora().equalsIgnoreCase(montadora) && carros.getTipo().equalsIgnoreCase(tipo)
-				&& carros.getPreco() == preco) {
+				&& carros.getPreco() < preco) {
 					exibir(carros);
 					verificador = 1;
 				}
@@ -212,7 +212,7 @@ public class BuscaCarro {
 		if (!montadora.equalsIgnoreCase("") && !modelo.equalsIgnoreCase("") && !tipo.equalsIgnoreCase("") && preco != 0) {
 			for (Carro carros : loja.getCarros()) {
 				if (carros.getModelo().equalsIgnoreCase(modelo) && carros.getTipo().equalsIgnoreCase(tipo)
-				&& carros.getPreco() == preco && carros.getMontadora().equalsIgnoreCase(montadora)) {
+				&& carros.getPreco() < preco && carros.getMontadora().equalsIgnoreCase(montadora)) {
 					exibir(carros);
 					verificador = 1;
 				}

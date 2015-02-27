@@ -26,7 +26,7 @@ Scanner input =  new Scanner(System.in);
 		System.out.print("Informe o tipo da moto: ");
 		tipo = input.nextLine();
 		try {
-			System.out.print("Informe o preco da moto: ");
+			System.out.print("Informe até quanto quer pagar no preço da moto: ");
 			preco = Float.parseFloat(input.nextLine());
 			if (preco < 0) {
 				System.out.println("Não existe esse preço então o valor vai ficar ZERO!!!");
@@ -75,7 +75,7 @@ Scanner input =  new Scanner(System.in);
 		
 		if (montadora.equalsIgnoreCase("") && tipo.equalsIgnoreCase("") && modelo.equalsIgnoreCase("")) {
 			for (Moto moto : loja.getMotocicletas()) {
-				if (moto.getPreco() == preco) {
+				if (moto.getPreco() < preco) {
 					exibir(moto);
 					verificador = 1;
 				}
@@ -87,7 +87,7 @@ Scanner input =  new Scanner(System.in);
 		
 		if (tipo.equalsIgnoreCase("") && modelo.equalsIgnoreCase("")) {
 			for (Moto moto : loja.getMotocicletas()) {
-				if (moto.getPreco() == preco && moto.getMontadora().equalsIgnoreCase(montadora)) {
+				if (moto.getPreco() < preco && moto.getMontadora().equalsIgnoreCase(montadora)) {
 					exibir(moto);
 					verificador = 1;
 				}
@@ -99,7 +99,7 @@ Scanner input =  new Scanner(System.in);
 		
 		if (montadora.equalsIgnoreCase("") && tipo.equalsIgnoreCase("")) {
 			for (Moto moto : loja.getMotocicletas()) {
-				if (moto.getPreco() == preco && moto.getModelo().equalsIgnoreCase(modelo)) {
+				if (moto.getPreco() < preco && moto.getModelo().equalsIgnoreCase(modelo)) {
 					exibir(moto);
 					verificador = 1;
 				}
@@ -111,7 +111,7 @@ Scanner input =  new Scanner(System.in);
 		
 		if (montadora.equalsIgnoreCase("") && modelo.equalsIgnoreCase("")) {
 			for (Moto moto : loja.getMotocicletas()) {
-				if (moto.getPreco() == preco && moto.getTipo().equalsIgnoreCase(tipo)) {
+				if (moto.getPreco() < preco && moto.getTipo().equalsIgnoreCase(tipo)) {
 					exibir(moto);
 					verificador = 1;
 				}
@@ -160,7 +160,7 @@ Scanner input =  new Scanner(System.in);
 		if (montadora.equalsIgnoreCase("")) {
 			for (Moto moto : loja.getMotocicletas()) {
 				if (moto.getModelo().equalsIgnoreCase(modelo) && moto.getTipo().equalsIgnoreCase(tipo)
-				&& moto.getPreco() == preco) {
+				&& moto.getPreco() < preco) {
 					exibir(moto);
 					verificador = 1;
 				}
@@ -173,7 +173,7 @@ Scanner input =  new Scanner(System.in);
 		if (tipo.equalsIgnoreCase("")) {
 			for (Moto moto : loja.getMotocicletas()) {
 				if (moto.getModelo().equalsIgnoreCase(modelo) && moto.getMontadora().equalsIgnoreCase(montadora)
-				&& moto.getPreco() == preco) {
+				&& moto.getPreco() < preco) {
 					exibir(moto);
 					verificador = 1;
 				}
@@ -186,7 +186,7 @@ Scanner input =  new Scanner(System.in);
 		if (modelo.equalsIgnoreCase("")) {
 			for (Moto moto : loja.getMotocicletas()) {
 				if (moto.getMontadora().equalsIgnoreCase(montadora) && moto.getTipo().equalsIgnoreCase(tipo)
-				&& moto.getPreco() == preco) {
+				&& moto.getPreco() < preco) {
 					exibir(moto);
 					verificador = 1;
 				}
@@ -212,7 +212,7 @@ Scanner input =  new Scanner(System.in);
 		if (!montadora.equalsIgnoreCase("") && !modelo.equalsIgnoreCase("") && !tipo.equalsIgnoreCase("") && preco != 0) {
 			for (Moto moto : loja.getMotocicletas()) {
 				if (moto.getModelo().equalsIgnoreCase(modelo) && moto.getTipo().equalsIgnoreCase(tipo)
-				&& moto.getPreco() == preco && moto.getMontadora().equalsIgnoreCase(montadora)) {
+				&& moto.getPreco() < preco && moto.getMontadora().equalsIgnoreCase(montadora)) {
 					exibir(moto);
 					verificador = 1;
 				}
