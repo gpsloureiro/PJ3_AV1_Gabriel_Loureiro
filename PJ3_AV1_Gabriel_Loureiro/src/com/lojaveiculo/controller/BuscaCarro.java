@@ -33,7 +33,6 @@ public class BuscaCarro {
 				preco = 0;
 			}
 		} catch (NumberFormatException e) {
-			System.out.println("Digitou Errado!!!");
 			preco = 0;
 		}
 		

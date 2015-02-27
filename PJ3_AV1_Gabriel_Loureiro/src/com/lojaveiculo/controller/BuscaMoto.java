@@ -33,7 +33,6 @@ Scanner input =  new Scanner(System.in);
 				preco = 0;
 			}
 		} catch (NumberFormatException e) {
-			System.out.println("Digitou Errado!!!");
 			preco = 0;
 		}
 		
