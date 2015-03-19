@@ -1,8 +1,7 @@
 package com.lojaveiculo.controller;
 
 import com.lojaveiculo.loja.Loja;
-import com.lojaveiculo.veiculo.Carro;
-import com.lojaveiculo.veiculo.Moto;
+import com.lojaveiculo.veiculo.Veiculo;
 import com.lojaveiculo.controller.CadastrarLoja;
 import com.lojaveiculo.controller.AdicionarCarro;
 import com.lojaveiculo.controller.AdicionarMoto;
@@ -12,8 +11,7 @@ import com.lojaveiculo.dao.EstoqueDAO;
 public class GerenciadorLoja {
 	
 	Loja loja = new Loja();
-	Carro carro;
-	Moto moto;
+	Veiculo veiculo;
 	
 	public void cadastrarLoja(){
 		
@@ -25,14 +23,14 @@ public class GerenciadorLoja {
 	public void adicionarCarro(){
 		
 		AdicionarCarro adCarro = new AdicionarCarro();
-		adCarro.addCarro(loja, carro);
+		adCarro.addCarro(loja, veiculo);
 		
 	}
 	
 	public void adicionarMoto(){
 		
 		AdicionarMoto adMoto = new AdicionarMoto();
-		adMoto.addMoto(loja, moto);
+		adMoto.addMoto(loja, veiculo);
 		
 	}
 	

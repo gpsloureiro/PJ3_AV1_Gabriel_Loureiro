@@ -1,19 +1,28 @@
 package com.lojaveiculo.controller;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 import com.lojaveiculo.loja.Loja;
-import com.lojaveiculo.veiculo.Moto;
+import com.lojaveiculo.veiculo.Veiculo;
 
 public class AdicionarMoto {
 	
 	Scanner input =  new Scanner(System.in);
 	
-public void addMoto(Loja loja, Moto moto){
+public void addMoto(Loja loja, Veiculo moto){
 		
-		String chassi = "", montadora = "", tipo = "", cor = "", modelo = "";
+		String chassi = "";
+		String montadora = "";
+		String tipo = "";
+		String cor = "";
+		String modelo = "";
 		float preco = 0;
-		int naoString = 0, cilindrada = 0, capacidade = 0;
+		int naoString = 0;
+		int cilindrada = 0;
+		int capacidade = 0;
+		HashMap<String, Integer> cilindradaOrCambio = new HashMap<String, Integer>();
+		HashMap<String, Integer> capacidadeOrMotorizacao = new HashMap<String, Integer>();
 		
 		for (int i = 0; i < 10; i++) {
 			System.out.println();
@@ -89,6 +98,7 @@ public void addMoto(Loja loja, Moto moto){
 				System.out.println("Digitou Errado tente novamete!!!");
 			}
 		}
+		cilindradaOrCambio.put("Cilindrada", cilindrada);
 		
 		while (capacidade == 0) {
 			try {
@@ -102,6 +112,7 @@ public void addMoto(Loja loja, Moto moto){
 				System.out.println("Digitou Errado tente novamete!!!");
 			}
 		}
+		capacidadeOrMotorizacao.put("Capacidade", capacidade);
 		
 		while (preco == 0) {
 			try {
@@ -116,8 +127,9 @@ public void addMoto(Loja loja, Moto moto){
 			}
 		}
 		
-		moto = new Moto(chassi, montadora, modelo, tipo, cor, cilindrada, capacidade, preco);
-		loja.getMotocicletas().add(moto);
+		moto = new Veiculo(chassi, montadora, modelo, tipo, cor, preco, 
+				cilindradaOrCambio,  capacidadeOrMotorizacao);
+		loja.getVeiculos().add(moto);
 	}
 
 }

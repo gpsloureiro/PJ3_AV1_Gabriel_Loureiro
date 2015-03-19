@@ -4,46 +4,53 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.lojaveiculo.loja.Loja;
-import com.lojaveiculo.veiculo.Carro;
+import com.lojaveiculo.veiculo.Veiculo;
 
 public class BuscaCarro {
 	
 	Scanner input =  new Scanner(System.in);
+	static final String definiCarro = "Cambio";
+	static final String definiCarro2 = "Motorização";
 	
 	public void pesquisaCarro(Loja loja){
 		
-		String modelo = "", montadora = "", tipo = "", cor = "";
+		String modelo = "";
+		String montadora = "";
+		String tipo = "";
+		String cor = "";
 		float preco = 0;
+		ArrayList<Veiculo> carrosDaLoja = new ArrayList<Veiculo>();
+		carrosDaLoja = CarrosDaLoja(loja);
 		
-		montadora = listarMontadora(loja);
-		modelo = listarModelo(loja, montadora);
+		montadora = listarMontadora(carrosDaLoja);
+		modelo = listarModelo(carrosDaLoja, montadora);
 		if (modelo.equalsIgnoreCase("")) {
 			preco = precoCarro();
 			if (preco == 0) {
-				for (Carro carros : loja.getCarros()) {
+				for (Veiculo carros : carrosDaLoja) {
 					if (carros.getMontadora().equalsIgnoreCase(montadora) && carros.getModelo().equalsIgnoreCase(modelo)) {
 						exibir(carros);
 					}
 				}
 			}else {
-				for (Carro carros : loja.getCarros()) {
+				for (Veiculo carros : carrosDaLoja) {
 					if (carros.getMontadora().equalsIgnoreCase(montadora) && carros.getPreco() <= preco) {
 						exibir(carros);
 					}
 				}
 			}
 		}else{
-			tipo = listarTipo(loja, montadora, modelo);
+			tipo = listarTipo(carrosDaLoja, montadora, modelo);
 			if (tipo.equalsIgnoreCase("")) {
-				for (Carro carros : loja.getCarros()) {
+				for (Veiculo carros : carrosDaLoja) {
 					if (carros.getMontadora().equalsIgnoreCase(montadora) && carros.getModelo().equalsIgnoreCase(modelo)) {
 						exibir(carros);
 					}
 				}
 			}else{
-				cor = listaCor(loja, montadora, modelo, tipo);
+				cor = listaCor(carrosDaLoja, montadora, modelo, tipo);
 				if (cor.equalsIgnoreCase("")) {
-					for (Carro carros : loja.getCarros()) {
+					for (Veiculo carros : carrosDaLoja) {
 						if (carros.getMontadora().equalsIgnoreCase(montadora) && carros.getModelo().equalsIgnoreCase(modelo)
 						&& carros.getTipo().equalsIgnoreCase(tipo)) {
 							exibir(carros);
@@ -52,14 +59,14 @@ public class BuscaCarro {
 				}else{
 					preco = precoCarro();
 					if (preco == 0) {
-						for (Carro carros : loja.getCarros()) {
+						for (Veiculo carros : carrosDaLoja) {
 							if (carros.getMontadora().equalsIgnoreCase(montadora) && carros.getModelo().equalsIgnoreCase(modelo)
 							&& carros.getTipo().equalsIgnoreCase(tipo) && carros.getCor().equalsIgnoreCase(cor)) {
 								exibir(carros);
 							}
 						}
 					}else {
-						for (Carro carros : loja.getCarros()) {
+						for (Veiculo carros : carrosDaLoja) {
 							if (carros.getMontadora().equalsIgnoreCase(montadora) && carros.getModelo().equalsIgnoreCase(modelo)
 							&& carros.getTipo().equalsIgnoreCase(tipo) && carros.getCor().equalsIgnoreCase(cor) && 
 							carros.getPreco() <= preco) {
@@ -73,7 +80,11 @@ public class BuscaCarro {
 		
 	}
 	
-	public static void exibir(Carro carros){
+	public static void exibir(Veiculo carros){
+		
+		Integer cambio = carros.getCilindradaOrCambio().get(definiCarro);
+		Integer motor = carros.getCapacidadeOrMotorizacao().get(definiCarro2);
+		
 		System.out.println();
 		System.out.println();
 		System.out.println("Chassi: " + carros.getChassi());
@@ -81,22 +92,34 @@ public class BuscaCarro {
 		System.out.println("Modelo: " + carros.getModelo());
 		System.out.println("Tipo: " + carros.getTipo());
 		System.out.println("Cor: " + carros.getCor());
-		System.out.println("Câmbio: " + carros.getCambio());
+		System.out.println("Câmbio: " + cambio);
 		System.out.println("Preço: " + carros.getPreco());
-		System.out.println("Motorização: " + carros.getMotorizacao());
+		System.out.println("Motorização: " + motor);
 		System.out.println();
 		System.out.println();
 	}
 	
-	public String listarMontadora(Loja loja){
+	public ArrayList<Veiculo> CarrosDaLoja(Loja loja){
+		
+		ArrayList<Veiculo> carros = new ArrayList<Veiculo>();
+		for (Veiculo veiculo : loja.getVeiculos()) {
+			if (veiculo.getCapacidadeOrMotorizacao().containsKey(definiCarro2)) {
+				carros.add(veiculo);
+			}
+		}
+		return carros;
+		
+	}
+	
+	public String listarMontadora(ArrayList<Veiculo> carros){
 		
 		ArrayList<String> escolhar = new ArrayList<String>();
 		
 		int contador = 0;
-		escolhar.add(loja.getCarros().get(contador).getMontadora());			
-		for (int i = 0; i < loja.getCarros().size(); i++) {
-			if (!escolhar.contains(loja.getCarros().get(i).getMontadora())) {
-				escolhar.add(loja.getCarros().get(i).getMontadora());
+		escolhar.add(carros.get(contador).getMontadora());			
+		for (int i = 0; i < carros.size(); i++) {
+			if (!escolhar.contains(carros.get(i).getMontadora())) {
+				escolhar.add(carros.get(i).getMontadora());
 			}
 		}
 		System.out.println();
@@ -121,15 +144,15 @@ public class BuscaCarro {
 		
 	}
 	
-    public String listarModelo(Loja loja, String montadora){
+    public String listarModelo(ArrayList<Veiculo> carros, String montadora){
 		
 		ArrayList<String> escolhar = new ArrayList<String>();
 		
 		int contador = 1, opcao = 0;
-		for (int i = 0; i < loja.getCarros().size(); i++) {
-			if (loja.getCarros().get(i).getMontadora().equalsIgnoreCase(montadora)) {
-				if (!escolhar.contains(loja.getCarros().get(i).getModelo())) {
-					escolhar.add(loja.getCarros().get(i).getModelo());
+		for (int i = 0; i < carros.size(); i++) {
+			if (carros.get(i).getMontadora().equalsIgnoreCase(montadora)) {
+				if (!escolhar.contains(carros.get(i).getModelo())) {
+					escolhar.add(carros.get(i).getModelo());
 				}
 			}
 		}
@@ -159,17 +182,17 @@ public class BuscaCarro {
 		
 	}
     
-    public String listaCor(Loja loja, String montadora, String modelo, String tipo){
+    public String listaCor(ArrayList<Veiculo> carros, String montadora, String modelo, String tipo){
 		
 		ArrayList<String> escolhar = new ArrayList<String>();
 		
 		int contador = 1, opcao = 0;
-		for (int i = 0; i < loja.getCarros().size(); i++) {
-			if (loja.getCarros().get(i).getMontadora().equalsIgnoreCase(montadora) &&
-			loja.getCarros().get(i).getModelo().equalsIgnoreCase(modelo) &&
-			loja.getCarros().get(i).getTipo().equalsIgnoreCase(tipo)) {
-				if (!escolhar.contains(loja.getCarros().get(i).getCor())) {
-					escolhar.add(loja.getCarros().get(i).getCor());
+		for (int i = 0; i < carros.size(); i++) {
+			if (carros.get(i).getMontadora().equalsIgnoreCase(montadora) &&
+			carros.get(i).getModelo().equalsIgnoreCase(modelo) &&
+			carros.get(i).getTipo().equalsIgnoreCase(tipo)) {
+				if (!escolhar.contains(carros.get(i).getCor())) {
+					escolhar.add(carros.get(i).getCor());
 				}
 			}
 		}
@@ -199,16 +222,16 @@ public class BuscaCarro {
 		
 	}
     
-    public String listarTipo(Loja loja, String montadora, String modelo){
+    public String listarTipo(ArrayList<Veiculo> carros, String montadora, String modelo){
     	
         ArrayList<String> escolhar = new ArrayList<String>();
 		
 		int contador = 1, opcao = 0;
-		for (int i = 0; i < loja.getCarros().size(); i++) {
-			if (loja.getCarros().get(i).getMontadora().equalsIgnoreCase(montadora) &&
-			loja.getCarros().get(i).getModelo().equalsIgnoreCase(modelo)) {
-				if (!escolhar.contains(loja.getCarros().get(i).getTipo())) {
-					escolhar.add(loja.getCarros().get(i).getTipo());
+		for (int i = 0; i < carros.size(); i++) {
+			if (carros.get(i).getMontadora().equalsIgnoreCase(montadora) &&
+			carros.get(i).getModelo().equalsIgnoreCase(modelo)) {
+				if (!escolhar.contains(carros.get(i).getTipo())) {
+					escolhar.add(carros.get(i).getTipo());
 				}
 			}
 		}
